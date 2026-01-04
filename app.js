@@ -319,15 +319,11 @@ state.timer = setInterval(() => {
 
   }
 
-  function revealAnswer() {
-    clearTimer();
-    if (!state.current) return;
-    state.phase = "reveal";
-    syncUI();
-    elCountdown.textContent = "";
-    elAnswer.classList.remove("hidden");
-    elControlsReveal.classList.remove("hidden");
-  }
+function revealAnswer() {
+  clearTimer();
+  state.phase = "reveal";
+  syncUI();
+}
 
   function submitResult(isCorrect) {
     if (!state.current) return;
@@ -347,26 +343,15 @@ function pause() {
 
 
 
-  function resume() {
+
+function resume() {
   if (state.phase !== "paused") return;
 
   state.phase = "question";
   syncUI();
-
-  clearTimer();
-  elCountdown.textContent =
-    state.remaining > 0 ? `あと ${state.remaining} 秒` : "";
-
-  state.timer = setInterval(() => {
-    if (state.phase !== "question") return;
-    state.remaining -= 1;
-    if (state.remaining <= 0) {
-      revealAnswer();
-    } else {
-      elCountdown.textContent = `あと ${state.remaining} 秒`;
-    }
-  }, 1000);
+  startTimer();
 }
+
 
 
 
@@ -458,6 +443,21 @@ function syncUI() {
     elAnswer.classList.add("hidden");
     elControlsReveal.classList.add("hidden");
   }
+}
+
+function startTimer() {
+  clearTimer();
+
+  state.timer = setInterval(() => {
+    state.remaining -= 1;
+
+    if (state.remaining <= 0) {
+      clearTimer();
+      revealAnswer();
+    } else {
+      elCountdown.textContent = `あと ${state.remaining} 秒`;
+    }
+  }, 1000);
 }
 
 
