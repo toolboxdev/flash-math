@@ -333,28 +333,45 @@
     startQuestion();
   }
 
-  function pause() {
-    if (state.phase === "paused") return;
-    clearTimer();
-    showPaused();
-  }
+function pause() {
+  if (state.phase === "paused") return;
+
+  clearTimer();
+  state.phase = "paused";
+
+  elPaused.classList.remove("hidden");
+  setStatus("停止中");
+}
+
 
   function resume() {
-    hidePaused();
-    // 停止中は答え表示前のタイマーを復元するのが理想だが、
-    // MVPでは再出題せず、残り秒を維持して再開する
-    state.phase = "question";
-    elCountdown.textContent = state.remaining > 0 ? `あと ${state.remaining} 秒` : "";
-    state.timer = setInterval(() => {
-      if (state.phase !== "question") return;
-      state.remaining -= 1;
-      if (state.remaining <= 0) {
-        revealAnswer();
-      } else {
-        elCountdown.textContent = `あと ${state.remaining} 秒`;
-      }
-    }, 1000);
-  }
+  // 停止中オーバーレイを必ず消す
+  elPaused.classList.add("hidden");
+
+  // 状態を出題中に戻す
+  state.phase = "question";
+
+  // 表示状態を正規化
+  elControlsReveal.classList.add("hidden");
+  elAnswer.classList.add("hidden");
+
+  // タイマー再構築
+  clearTimer();
+
+  elCountdown.textContent =
+    state.remaining > 0 ? `あと ${state.remaining} 秒` : "";
+
+  state.timer = setInterval(() => {
+    if (state.phase !== "question") return;
+    state.remaining -= 1;
+    if (state.remaining <= 0) {
+      revealAnswer();
+    } else {
+      elCountdown.textContent = `あと ${state.remaining} 秒`;
+    }
+  }, 1000);
+}
+
 
   function stop() {
     clearTimer();
@@ -427,3 +444,4 @@
 
   init();
 })();
+
