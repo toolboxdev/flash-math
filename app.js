@@ -485,7 +485,7 @@ function pause() {
     }
   
     showQuiz(); // 計算画面のまま
-  }}
+  }
 
 
   function wireUI() {
@@ -610,6 +610,7 @@ function pause() {
 
   init();
 })();
+
 
 
 
