@@ -433,13 +433,15 @@ function showQuiz() {
   function revealAnswer() {
     clearTimer();
     state.phase = "reveal";
+
+    state.sessionTotal += 1;
+    
     syncUI();
   }
 
   function submitResult(isCorrect) {
     if (!state.current) return;
-
-    state.sessionTotal += 1;
+;
     if (isCorrect) state.sessionCorrect += 1;
     
     updateWeight(state.current.key, isCorrect);
@@ -598,6 +600,7 @@ function resume() {
 
   init();
 })();
+
 
 
 
