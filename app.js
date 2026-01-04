@@ -154,7 +154,6 @@ function showSettings() {
   elQuiz.classList.add("hidden");
   elSettings.classList.remove("hidden");
   syncUI();
-  setStatus("");
 }
 
 
@@ -599,6 +598,7 @@ function resume() {
 
   init();
 })();
+
 
 
 
