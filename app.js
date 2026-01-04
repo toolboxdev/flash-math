@@ -26,6 +26,9 @@
   const sum10Card = $("sum10Card");
   const chkSum10 = $("sum10");
 
+  const elResult = $("result");
+
+
   const TEXT = {
     // ボタン
     start: "はじめる",
@@ -469,18 +472,22 @@ function resume() {
 
 
 
-
   function stop() {
     clearTimer();
     state.current = null;
-
-    // ★結果表示
+  
     if (state.sessionTotal > 0) {
-      setStatus(TEXT.result(state.sessionCorrect, state.sessionTotal));
+      elResult.textContent = TEXT.result(
+        state.sessionCorrect,
+        state.sessionTotal
+      );
+    } else {
+      elResult.textContent = "";
     }
-    
+  
     showSettings();
   }
+
 
   function wireUI() {
     document.querySelectorAll(".segBtn[data-opmode]").forEach(btn => {
@@ -520,6 +527,9 @@ function resume() {
 
       state.sessionTotal = 0;
       state.sessionCorrect = 0;
+
+      elResult.textContent = "";
+      
       showQuiz();
       startQuestion();
     });
@@ -600,6 +610,7 @@ function resume() {
 
   init();
 })();
+
 
 
 
