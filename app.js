@@ -26,6 +26,27 @@
   const sum10Card = $("sum10Card");
   const chkSum10 = $("sum10");
 
+  const TEXT = {
+    // ボタン
+    start: "はじめる",
+    pause: "やすむ",
+    resume: "つづける",
+    stop: "おわる",
+
+    // 判定
+    correct: "できた！",
+    wrong: "ちがった",
+    
+    // 表示
+    ready: "できたよ！",
+    paused: "ちょっと やすもう",
+    next: "つぎの もんだいだよ",
+
+    // カウントダウン
+    countdown: (n) => `あと ${n} びょう`
+  };
+
+
   const state = {
     settings: {
       opmode: "add",     // add | sub | mix
@@ -454,6 +475,7 @@ function resume() {
 
   init();
 })();
+
 
 
 
