@@ -28,6 +28,8 @@
 
   const elResult = $("result");
 
+  const btnBackToSettings = $("btnBackToSettings");
+
 
   const TEXT = {
     // ボタン
@@ -481,11 +483,11 @@ function pause() {
         state.sessionCorrect,
         state.sessionTotal
       );
-      elResult.classList.remove("hidden"); // ★表示
+      elResult.classList.remove("hidden");
+      btnBackToSettings.classList.remove("hidden"); 
     }
-  
-    showQuiz(); // 計算画面のまま
   }
+
 
 
   function wireUI() {
@@ -528,11 +530,13 @@ function pause() {
     state.sessionCorrect = 0;
   
     elResult.textContent = "";
-    elResult.classList.add("hidden"); // ★隠す
+    elResult.classList.add("hidden");
+    btnBackToSettings.classList.add("hidden"); 
   
     showQuiz();
     startQuestion();
   });
+
 
     btnStop.addEventListener("click", stop);
     btnRevealNow.addEventListener("click", revealAnswer);
@@ -547,6 +551,13 @@ function pause() {
     });
 
     btnResetHistory.addEventListener("click", resetHistory);
+
+    btnBackToSettings.addEventListener("click", () => {
+      elResult.classList.add("hidden");
+      btnBackToSettings.classList.add("hidden");
+      showSettings();
+    });
+
   }
 
   function init() {
@@ -610,6 +621,7 @@ function pause() {
 
   init();
 })();
+
 
 
 
