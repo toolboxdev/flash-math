@@ -469,12 +469,23 @@ function resume() {
     loadHistory();
     wireUI();
     normalizeUIBySettings();
+    btnStart.textContent = TEXT.start;
+    btnPause.textContent = TEXT.pause;
+    btnResume.textContent = TEXT.resume;
+    btnStop.textContent = TEXT.stop;
+  
+    btnCorrect.textContent = TEXT.correct;
+    btnWrong.textContent = TEXT.wrong;
+  
+    elPaused.textContent = TEXT.paused;
+    setStatus(TEXT.ready);
+
     showSettings();
-    setStatus("準備完了");
   }
 
   init();
 })();
+
 
 
 
