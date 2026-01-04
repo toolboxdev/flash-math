@@ -318,34 +318,34 @@ function showQuiz() {
   }
 
   
-  function startQuestion() {
-    clearTimer();
+function startQuestion() {
+  // ★必ず最初に状態を正規化する
+  clearTimer();
+  state.phase = "question";
+  syncUI();
 
-    const candidates = listCandidatesBySettings();
-    if (!candidates.length) {
-      setStatus("条件に合う問題がありません。設定を見直してください");
-      showSettings();
-      return;
-    }
-
-    const p = weightedPick(candidates);
-    state.current = p;
-    state.prevKey = p.key;
-
-    elProblem.textContent = formatProblem(p);
-    elAnswer.textContent = String(p.answer);
-    elAnswer.classList.add("hidden");
-    elControlsReveal.classList.add("hidden");
-
-    state.remaining = Number(state.settings.seconds) || 3;
-    elCountdown.textContent = `あと ${state.remaining} 秒`;
-    state.phase = "question";
-
-    syncUI();
-    startTimer();
-
-
+  const candidates = listCandidatesBySettings();
+  if (!candidates.length) {
+    setStatus("条件に合う問題がありません。設定を見直してください");
+    showSettings();
+    return;
   }
+
+  const p = weightedPick(candidates);
+  state.current = p;
+  state.prevKey = p.key;
+
+  elProblem.textContent = formatProblem(p);
+  elAnswer.textContent = String(p.answer);
+  elAnswer.classList.add("hidden");
+  elControlsReveal.classList.add("hidden");
+
+  state.remaining = Number(state.settings.seconds) || 3;
+  elCountdown.textContent = `あと ${state.remaining} 秒`;
+
+  startTimer();
+}
+
 
 function revealAnswer() {
   clearTimer();
@@ -361,7 +361,7 @@ function revealAnswer() {
   }
 
 function pause() {
-  if (state.phase === "paused") return;
+  if (state.phase !== "question") return;
 
   clearTimer();
   state.phase = "paused";
@@ -454,6 +454,7 @@ function resume() {
 
   init();
 })();
+
 
 
 
