@@ -32,18 +32,41 @@
     pause: "やすむ",
     resume: "つづける",
     stop: "おわる",
-
+  
     // 判定
     correct: "できた！",
     wrong: "ちがった",
-    
+  
     // 表示
     ready: "できたよ！",
     paused: "ちょっと やすもう",
-    next: "つぎの もんだいだよ",
-
+  
     // カウントダウン
-    countdown: (n) => `あと ${n} びょう`
+    countdown: (n) => `あと ${n} びょう`,
+  
+    // ===== 設定画面 =====
+  
+    // 見出し
+    heading_op: "しゅつだいの しかた",
+    heading_range: "かずの はんい",
+    heading_seconds: "こたえを みるまで",
+  
+    // 出題タイプ
+    opmode: {
+      add: "たしざん",
+      sub: "ひきざん",
+      mix: "まぜて"
+    },
+  
+    // 数値範囲
+    range: {
+      c2a: "いちけた（0〜9）",
+      c2b: "0〜18",
+      c3: "どちらか にけた（10〜99）"
+    },
+  
+    // 秒数
+    seconds: (n) => `${n} びょう`
   };
 
 
@@ -469,6 +492,28 @@ function resume() {
     loadHistory();
     wireUI();
     normalizeUIBySettings();
+
+    // ===== 設定画面ラベル =====
+    $("labelOp").textContent = TEXT.heading_op;
+    $("labelRange").textContent = TEXT.heading_range;
+    $("labelSeconds").textContent = TEXT.heading_seconds;
+  
+    // 出題タイプ
+    document.querySelector('[data-opmode="add"]').textContent = TEXT.opmode.add;
+    document.querySelector('[data-opmode="sub"]').textContent = TEXT.opmode.sub;
+    document.querySelector('[data-opmode="mix"]').textContent = TEXT.opmode.mix;
+  
+    // 数値範囲
+    document.querySelector('[data-range="c2a"]').textContent = TEXT.range.c2a;
+    document.querySelector('[data-range="c2b"]').textContent = TEXT.range.c2b;
+    document.querySelector('[data-range="c3"]').textContent = TEXT.range.c3;
+  
+    // 秒数
+    document.querySelectorAll(".segBtn[data-seconds]").forEach(btn => {
+      const sec = btn.getAttribute("data-seconds");
+      btn.textContent = TEXT.seconds(sec);
+    });
+
     btnStart.textContent = TEXT.start;
     btnPause.textContent = TEXT.pause;
     btnResume.textContent = TEXT.resume;
@@ -485,6 +530,7 @@ function resume() {
 
   init();
 })();
+
 
 
 
