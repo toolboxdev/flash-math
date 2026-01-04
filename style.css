@@ -228,3 +228,18 @@ body{
   text-align: center;
 }
 
+#screenQuiz {
+  position: relative;
+}
+
+.result {
+  position: absolute;
+  bottom: 1em;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+
