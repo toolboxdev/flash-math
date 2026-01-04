@@ -321,6 +321,7 @@
     clearTimer();
     if (!state.current) return;
     state.phase = "reveal";
+    syncUI();
     elCountdown.textContent = "";
     elAnswer.classList.remove("hidden");
     elControlsReveal.classList.remove("hidden");
@@ -338,26 +339,18 @@ function pause() {
 
   clearTimer();
   state.phase = "paused";
-
-  elPaused.classList.remove("hidden");
-  setStatus("停止中");
+  syncUI();
 }
 
 
+
   function resume() {
-  // 停止中オーバーレイを必ず消す
-  elPaused.classList.add("hidden");
+  if (state.phase !== "paused") return;
 
-  // 状態を出題中に戻す
   state.phase = "question";
+  syncUI();
 
-  // 表示状態を正規化
-  elControlsReveal.classList.add("hidden");
-  elAnswer.classList.add("hidden");
-
-  // タイマー再構築
   clearTimer();
-
   elCountdown.textContent =
     state.remaining > 0 ? `あと ${state.remaining} 秒` : "";
 
@@ -371,6 +364,7 @@ function pause() {
     }
   }, 1000);
 }
+
 
 
   function stop() {
@@ -444,4 +438,22 @@ function pause() {
 
   init();
 })();
+
+function syncUI() {
+  // 停止中オーバーレイ
+  if (state.phase === "paused") {
+    elPaused.classList.remove("hidden");
+  } else {
+    elPaused.classList.add("hidden");
+  }
+
+  // 答え表示・判定ボタン
+  if (state.phase === "reveal") {
+    elAnswer.classList.remove("hidden");
+    elControlsReveal.classList.remove("hidden");
+  } else {
+    elAnswer.classList.add("hidden");
+    elControlsReveal.classList.add("hidden");
+  }
+}
 
