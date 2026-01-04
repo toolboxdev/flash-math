@@ -222,24 +222,19 @@ body{
 }
 
 .result {
-  margin: 1em 0;
+  margin-top: auto;
+  margin-bottom: 1em;
   font-size: 1.4rem;
   font-weight: bold;
   text-align: center;
 }
 
 #screenQuiz {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
-.result {
-  position: absolute;
-  bottom: 1em;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 1.4rem;
-  font-weight: bold;
-}
+
 
 
