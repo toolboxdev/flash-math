@@ -616,13 +616,14 @@ function pause() {
     btnWrong.textContent = TEXT.wrong;
   
     elPaused.textContent = TEXT.paused;
-    setStatus(TEXT.ready);
+    setStatus("");
 
     showSettings();
   }
 
   init();
 })();
+
 
 
 
