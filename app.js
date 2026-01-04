@@ -93,7 +93,7 @@
   TEXT.heading_seconds = "こたえを みるまで";
 
   TEXT.result = (correct, total) =>
-  `${total}もんちゅう ${correct}もん できたよ！`;
+    `\n${total}もん おわり！\n${correct}もん できたよ！`;
 
   const state = {
     settings: {
@@ -437,14 +437,20 @@ function showQuiz() {
   }
   
   
-  function revealAnswer() {
-    clearTimer();
-    state.phase = "reveal";
-
-    state.sessionTotal += 1;
+    function revealAnswer() {
+      clearTimer();
+      state.phase = "reveal";
     
-    syncUI();
-  }
+      state.sessionTotal += 1;
+    
+      // ★ 50問終わったら自動終了
+      if (state.sessionTotal >= 50) {
+        stop();
+        return;
+      }
+    
+      syncUI();
+    }
 
   function submitResult(isCorrect) {
     if (!state.current) return;
@@ -623,6 +629,7 @@ function pause() {
 
   init();
 })();
+
 
 
 
