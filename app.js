@@ -40,6 +40,8 @@
   
     // 表示
     ready: "できたよ！",
+
+    revealNow: "いますぐ こたえをみる",
   
     // カウントダウン
     countdown: (n) => `あと ${n} びょう`,
@@ -580,14 +582,17 @@ function showQuiz() {
   
     btnCorrect.textContent = TEXT.correct;
     btnWrong.textContent = TEXT.wrong;
-  
-    setStatus("");
+
+    btnRevealNow.textContent = TEXT.revealNow;
+
+    setStatus(TEXT.ready);
 
     showSettings();
   }
 
   init();
 })();
+
 
 
 
