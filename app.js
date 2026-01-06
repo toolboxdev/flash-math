@@ -11,7 +11,7 @@
   const elCountdown = $("countdown");
   const elControlsReveal = $("controlsReveal");
   const elStatus = $("status");
-  const elPaused = $("paused");
+
 
   const btnToSettings = $("btnToSettings");
   const btnStart = $("btnStart");
@@ -19,8 +19,6 @@
   const btnRevealNow = $("btnRevealNow");
   const btnCorrect = $("btnCorrect");
   const btnWrong = $("btnWrong");
-  const btnPause = $("btnPause");
-  const btnResume = $("btnResume");
   const btnResetHistory = $("btnResetHistory");
 
   const sum10Card = $("sum10Card");
@@ -34,8 +32,6 @@
   const TEXT = {
     // ボタン
     start: "はじめる",
-    pause: "やすむ",
-    resume: "つづける",
     stop: "おわる",
   
     // 判定
@@ -44,7 +40,6 @@
   
     // 表示
     ready: "できたよ！",
-    paused: "ちょっと やすもう",
   
     // カウントダウン
     countdown: (n) => `あと ${n} びょう`,
@@ -107,7 +102,7 @@
     prevKey: null,
     timer: null,
     remaining: 0,
-    phase: "settings",   // settings | question | reveal | paused
+    phase: "settings",   // settings | question | reveal
     sessionTotal: 0,
     sessionCorrect: 0
   };
@@ -168,23 +163,12 @@ function showQuiz() {
   elSettings.classList.add("hidden");
   elQuiz.classList.remove("hidden");
   elQuiz.removeAttribute("hidden"); 
-  elQuiz.classList.remove("paused-active"); // ★追加
   syncUI();
   setStatus("");
 }
 
 
 
-  function showPaused() {
-    state.phase = "paused";
-    elPaused.classList.remove("hidden");
-    setStatus("停止中");
-  }
-
-  function hidePaused() {
-    elPaused.classList.add("hidden");
-    setStatus("");
-  }
 
   function normalizeUIBySettings() {
     setActiveSeg(".segBtn[data-opmode]", state.settings.opmode, "data-opmode");
@@ -375,12 +359,6 @@ function showQuiz() {
     }
   }
   function syncUI() {
-    // 停止中オーバーレイ
-    if (state.phase === "paused") {
-      elPaused.classList.remove("hidden");
-    } else {
-      elPaused.classList.add("hidden");
-    }
 
     // 答え表示・判定ボタン
     if (state.phase === "reveal") {
@@ -462,23 +440,9 @@ function showQuiz() {
     startQuestion();
   }
 
-function pause() {
-  if (state.phase !== "question") return;
-  clearTimer();
-  state.phase = "paused";
-  elQuiz.classList.add("paused-active"); // ★追加
-  syncUI();
-}
 
 
 
-  function resume() {
-    if (state.phase !== "paused") return;
-    state.phase = "question";
-    elQuiz.classList.remove("paused-active"); // ★追加
-    syncUI();
-    startTimer();
-  }
   
   
   
@@ -551,8 +515,6 @@ function pause() {
     btnCorrect.addEventListener("click", () => submitResult(true));
     btnWrong.addEventListener("click", () => submitResult(false));
 
-    btnPause.addEventListener("click", pause);
-    btnResume.addEventListener("click", resume);
 
     btnToSettings.addEventListener("click", () => {
       if (state.phase !== "settings") stop();
@@ -613,15 +575,12 @@ function pause() {
       btn.textContent = TEXT.seconds(sec);
     });
 
-    btnStart.textContent = TEXT.start;
-    btnPause.textContent = TEXT.pause;
     btnResume.textContent = TEXT.resume;
     btnStop.textContent = TEXT.stop;
   
     btnCorrect.textContent = TEXT.correct;
     btnWrong.textContent = TEXT.wrong;
   
-    elPaused.textContent = TEXT.paused;
     setStatus("");
 
     showSettings();
@@ -629,6 +588,7 @@ function pause() {
 
   init();
 })();
+
 
 
 
