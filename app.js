@@ -575,6 +575,7 @@ function showQuiz() {
       btn.textContent = TEXT.seconds(sec);
     });
 
+    btnStart.textContent = TEXT.start;
     btnStop.textContent = TEXT.stop;
   
     btnCorrect.textContent = TEXT.correct;
@@ -587,6 +588,7 @@ function showQuiz() {
 
   init();
 })();
+
 
 
 
