@@ -12,37 +12,37 @@
   <div class="app">
     <header class="topbar">
       <div class="title">フラッシュ計算</div>
-      <button id="btnToSettings" class="btn ghost" type="button">設定</button>
+      <button id="btnToSettings" class="btn ghost" type="button">りれき</button>
     </header>
 
     <main class="main">
       <section id="screenSettings" class="screen">
-        <h1 class="h1">設定</h1>
+        <h1 class="h1">せってい</h1>
 
         <div class="card">
-          <div class="label">出題タイプ</div>
+          <div class="label">しゅつだいの しかた</div>
           <div class="seg">
-            <button class="segBtn" data-opmode="add" type="button">足し算</button>
-            <button class="segBtn" data-opmode="sub" type="button">引き算</button>
-            <button class="segBtn" data-opmode="mix" type="button">混合</button>
+            <button class="segBtn" data-opmode="add" type="button">たしざん</button>
+            <button class="segBtn" data-opmode="sub" type="button">ひきざん</button>
+            <button class="segBtn" data-opmode="mix" type="button">まぜて</button>
           </div>
         </div>
 
         <div class="card">
-          <div class="label">数値範囲</div>
+          <div class="label">かずの はんい</div>
           <div class="seg">
-            <button class="segBtn" data-range="c2a" type="button">一桁 0〜9</button>
-            <button class="segBtn" data-range="c2b" type="button">0〜18</button>
-            <button class="segBtn" data-range="c3" type="button">片方二桁 10〜99</button>
+            <button class="segBtn" data-range="c2a" type="button">ひとけた（1〜9）</button>
+            <button class="segBtn" data-range="c2b" type="button">1〜19</button>
+            <button class="segBtn" data-range="c3" type="button">どちらか にけた（10〜99）</button>
           </div>
-          <div class="hint">数値範囲は排他です</div>
+          <div class="hint">かずの はんいは 1つだけ えらべます</div>
         </div>
 
         <div class="card" id="sum10Card">
           <div class="row">
             <div>
-              <div class="label">合計10まで</div>
-              <div class="hint">足し算のときのみ有効</div>
+              <div class="label">ごうけい 10まで</div>
+              <div class="hint">たしざんの ときだけ</div>
             </div>
             <label class="switch">
               <input id="sum10" type="checkbox" />
@@ -52,52 +52,84 @@
         </div>
 
         <div class="card">
-          <div class="label">答え表示までの秒数</div>
+          <div class="label">こたえを みるまで</div>
           <div class="seg">
-            <button class="segBtn" data-seconds="1" type="button">1</button>
-            <button class="segBtn" data-seconds="2" type="button">2</button>
-            <button class="segBtn" data-seconds="3" type="button">3</button>
-            <button class="segBtn" data-seconds="5" type="button">5</button>
+            <button class="segBtn" data-seconds="1" type="button">1 びょう</button>
+            <button class="segBtn" data-seconds="2" type="button">2 びょう</button>
+            <button class="segBtn" data-seconds="3" type="button">3 びょう</button>
+            <button class="segBtn" data-seconds="5" type="button">5 びょう</button>
           </div>
         </div>
 
         <div class="card">
-          <div class="label">学習履歴</div>
+          <div class="label">もんすう</div>
           <div class="row">
-            <button id="btnResetHistory" class="btn danger" type="button">履歴リセット</button>
-            <div class="hint">端末内の学習履歴を削除します</div>
+            <div class="hint">1セット 50もん</div>
+            <div class="hint">せっていは じどうで きおくされます</div>
           </div>
         </div>
 
-        <button id="btnStart" class="btn primary big" type="button"></button>
+        <button id="btnStart" class="btn primary big" type="button">はじめる</button>
       </section>
 
-      <section id="screenQuiz" class="screen hidden">
+      <section id="screenQuiz" class="screen hidden" hidden>
         <div class="quizCard">
-          <div id="countdown" class="countdown"></div>
+          <div class="metaRow">
+            <div id="countdown" class="countdown">あと 0 びょう</div>
+            <div id="progress" class="progress">
+              いま <span id="nowNo" class="numBig">1</span>もん
+              <span class="sep">/</span>
+              のこり <span id="remainNo" class="numBig">50</span>もん
+            </div>
+          </div>
+
           <div id="problem" class="problem">-</div>
           <div id="answer" class="answer hidden">-</div>
         </div>
 
-        <div id="controlsReveal" class="controls hidden">
-          <button id="btnCorrect" class="btn primary big" type="button">正解だった</button>
-          <button id="btnWrong" class="btn big" type="button">まちがえた</button>
+        <div class="spacer"></div>
+
+        <div id="resultWrap" class="resultWrap hidden">
+          <div id="result" class="result"></div>
+          <button id="btnBackToSettings" class="btn ghost" type="button">せっていへ もどる</button>
         </div>
 
-        <div class="controls">
-          <button id="btnRevealNow" class="btn ghost" type="button">今すぐ答え</button>
-          <button id="btnStop" class="btn ghost" type="button">終了</button>
+        <div id="bottomActions" class="bottomActions">
+          <div id="controlsReveal" class="controlsReveal hidden">
+            <button id="btnCorrect" class="btn primary big" type="button">できた</button>
+            <button id="btnWrong" class="btn big" type="button">ちがった</button>
+          </div>
+
+          <button id="btnRevealNow" class="btn ghost big" type="button">いますぐ こたえ</button>
+        </div>
+      </section>
+
+      <section id="screenHistory" class="screen hidden" hidden>
+        <div class="historyHeader">
+          <h1 class="h1">りれき</h1>
+          <button id="btnResetAll" class="btn subtle" type="button">りれき ぜんぶ りせっと</button>
         </div>
 
-        <div id="result" class="result hidden"></div>
-        
-        <button
-          id="btnBackToSettings"
-          class="btn ghost hidden"
-          type="button">
-          もどる
-        </button>
-        
+        <div class="tabs">
+          <button id="tabProblem" class="tabBtn active" type="button">もんだい</button>
+          <button id="tabSet" class="tabBtn" type="button">れんしゅう</button>
+        </div>
+
+        <div id="paneProblem" class="pane">
+          <div class="filters">
+            <button class="chip active" data-filter-op="all" type="button">ぜんぶ</button>
+            <button class="chip" data-filter-op="add" type="button">たしざん</button>
+            <button class="chip" data-filter-op="sub" type="button">ひきざん</button>
+          </div>
+
+          <div class="hint">せいかいりつが ひくい じゅん</div>
+          <div id="historyProblemList" class="list"></div>
+        </div>
+
+        <div id="paneSet" class="pane hidden" hidden>
+          <div class="hint">あたらしい じゅん</div>
+          <div id="historySetList" class="list"></div>
+        </div>
       </section>
     </main>
 
@@ -108,18 +140,9 @@
 
   <script src="app.js"></script>
   <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js").catch(() => {});
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
     }
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
